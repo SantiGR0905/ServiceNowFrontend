@@ -191,7 +191,7 @@ const Registrarse = () => {
                     navigate("/Provider");
                     break;
                 case 3:
-                    navigate("/Dashboard");
+                    navigate("/Profile ");
                     break;
                 default:
                     navigate("/");

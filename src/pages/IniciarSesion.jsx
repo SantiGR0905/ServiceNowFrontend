@@ -36,7 +36,7 @@
             try {
                 // 1. Autenticación
                 const authResponse = await axios.post(
-                    "http://servicenow.somee.com/api/Users/login",
+                    "https://servicenow.somee.com/api/Users/login",
                     formData,
                     {
                         headers: {
@@ -49,7 +49,7 @@
 
                 // 2. Obtener datos del usuario autenticado
                 // Obtener todos los usuarios
-                const allUsersResponse = await axios.get("http://servicenow.somee.com/api/Users");
+                const allUsersResponse = await axios.get("https://servicenow.somee.com/api/Users");
                 const allUsers = allUsersResponse.data;
 
                 // Buscar el usuario con el mismo email
@@ -66,7 +66,7 @@
 
                 // 3. Obtener permisos del usuario
                 const permissionsResponse = await axios.get(
-                    `http://servicenow.somee.com/api/PermissionsXUsers?userTypeId=${loggedInUser.userTypes.userTypeId}`
+                    `https://servicenow.somee.com/api/PermissionsXUsers?userTypeId=${loggedInUser.userTypes.userTypeId}`
                 );
 
                 const userPermission = Array.isArray(permissionsResponse.data ) ?

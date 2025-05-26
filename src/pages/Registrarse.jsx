@@ -32,7 +32,7 @@ const Registrarse = () => {
 
         const loadServices = async () => {
             try {
-                const response = await axios.get("http://servicenow.somee.com/api/PersonalServices");
+                const response = await axios.get("https://servicenow.somee.com/api/PersonalServices");
                 setServices(response.data);
             } catch (error) {
                 console.error("Error al cargar servicios:", error);
@@ -81,7 +81,7 @@ const Registrarse = () => {
     try {
         console.log("Registering provider with userId:", userId, "and serviceId:", formData.serviceId);
       const response = await axios.post(
-        "http://servicenow.somee.com/api/Providers",
+        "https://servicenow.somee.com/api/Providers",
         {
             UserId: userId,
             ServiceId: parseInt(formData.serviceId, 10),
@@ -108,7 +108,7 @@ const Registrarse = () => {
     const registerCustomer = async (userId) => {
     try {
       const response = await axios.post(
-        "http://servicenow.somee.com/api/Customers",
+        "https://servicenow.somee.com/api/Customers",
         {
           UserId: userId
         },
@@ -140,11 +140,11 @@ const Registrarse = () => {
 
         try {
             // Crear el usuario
-            const createUserResponse = await axios.post("http://servicenow.somee.com/api/Users", formData, {
+            const createUserResponse = await axios.post("https://servicenow.somee.com/api/Users", formData, {
                 headers: { "Content-Type": "application/json" }
             });
 
-            const allUsersResponse = await axios.get("http://servicenow.somee.com/api/Users");
+            const allUsersResponse = await axios.get("https://servicenow.somee.com/api/Users");
             const registeredUser = allUsersResponse.data.find(user => user.email === formData.email);
 
             if (!registeredUser || !registeredUser.userId) {
@@ -160,7 +160,7 @@ const Registrarse = () => {
 
             // Obtener permisos
             const permissionsResponse = await axios.get(
-                `http://servicenow.somee.com/api/PermissionsXUsers?userTypeId=${registeredUser.userTypeId}`
+                `https://servicenow.somee.com/api/PermissionsXUsers?userTypeId=${registeredUser.userTypeId}`
             );
 
             const userPermission = Array.isArray(permissionsResponse.data)

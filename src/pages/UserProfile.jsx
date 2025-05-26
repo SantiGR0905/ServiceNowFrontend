@@ -27,7 +27,7 @@ export default function UserProfile() {
   const handleUpdateProfile = async () => {
     try {
       const response = await axios.put(
-        `http://servicenow.somee.com/api/Users/${user.userId}`,
+        `https://servicenow.somee.com/api/Users/${user.userId}`,
         profile
       );
       updateUser(response.data);

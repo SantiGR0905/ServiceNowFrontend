@@ -14,7 +14,7 @@ export default function ClientMessages() {
   useEffect(() => {
     const fetchMessages = async () => {
       try {
-        const res = await axios.get(`http://servicenow.somee.com/api/Messages?appointmentId=${appointmentId}`);
+        const res = await axios.get(`https://servicenow.somee.com/api/Messages?appointmentId=${appointmentId}`);
         setMessages(res.data.filter(m => !m.isDeleted));
       } catch (error) {
         console.error('Error fetching messages:', error);
@@ -35,13 +35,13 @@ export default function ClientMessages() {
     if (!newMessage.trim() || !user?.userId) return;
 
     try {
-      await axios.post('http://servicenow.somee.com/api/Messages', {
+      await axios.post('https://servicenow.somee.com/api/Messages', {
         appointmentId,
         userId: user.userId,
         messageText: newMessage
       });
       setNewMessage('');
-      const res = await axios.get(`http://servicenow.somee.com/api/Messages?appointmentId=${appointmentId}`);
+      const res = await axios.get(`https://servicenow.somee.com/api/Messages?appointmentId=${appointmentId}`);
       setMessages(res.data.filter(m => !m.isDeleted));
     } catch (error) {
       console.error('Error sending message:', error);

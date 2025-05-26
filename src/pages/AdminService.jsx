@@ -52,9 +52,9 @@ const AdminServiceAPI = {
   getAdminStats: async () => {
     try {
       const [usersRes, appointmentsRes, paymentsRes] = await Promise.all([
-        axios.get('http://servicenow.somee.com/api/Users'),
-        axios.get('http://servicenow.somee.com/api/Appointments'),
-        axios.get('http://servicenow.somee.com/api/Payments')
+        axios.get('https://servicenow.somee.com/api/Users'),
+        axios.get('https://servicenow.somee.com/api/Appointments'),
+        axios.get('https://servicenow.somee.com/api/Payments')
       ]);
       
       return {
@@ -72,19 +72,19 @@ const AdminServiceAPI = {
   },
 
   updateUserType: async (userId, userTypeId) => {
-    return axios.put(`http://servicenow.somee.com/api/Users/${userId}/type`, { userTypeId });
+    return axios.put(`https://servicenow.somee.com/api/Users/${userId}/type`, { userTypeId });
   },
 
   toggleUserStatus: async (userId, isDeleted) => {
-    return axios.put(`http://servicenow.somee.com/api/Users/${userId}/status`, { isDeleted });
+    return axios.put(`https://servicenow.somee.com/api/Users/${userId}/status`, { isDeleted });
   },
 
   toggleServiceStatus: async (serviceId, isDeleted) => {
-    return axios.put(`http://servicenow.somee.com/api/PersonalServices/${serviceId}/status`, { isDeleted });
+    return axios.put(`https://servicenow.somee.com/api/PersonalServices/${serviceId}/status`, { isDeleted });
   },
 
   updateAppointmentStatus: async (appointmentId, status) => {
-    return axios.put(`http://servicenow.somee.com/api/Appointments/${appointmentId}/status`, { status });
+    return axios.put(`https://servicenow.somee.com/api/Appointments/${appointmentId}/status`, { status });
   }
 };
 

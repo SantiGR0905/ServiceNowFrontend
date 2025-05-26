@@ -36,11 +36,11 @@ export default function ClientDashboard() {
         setError(null);
 
         // Obtener datos del usuario
-        const userRes = await axios.get(`http://servicenow.somee.com/api/Users/${userId}`);
+        const userRes = await axios.get(`https://servicenow.somee.com/api/Users/${userId}`);
         const userData = userRes.data;
 
         // Obtener customerId
-        const customerRes = await axios.get(`http://servicenow.somee.com/api/Customers`, {
+        const customerRes = await axios.get(`https://servicenow.somee.com/api/Customers`, {
           params: { usersUserId: userId }
         });
         
@@ -49,13 +49,13 @@ export default function ClientDashboard() {
 
         // Cargar datos en paralelo
         const [appointmentsRes, paymentsRes, providersRes] = await Promise.all([
-          axios.get(`http://servicenow.somee.com/api/Appointments`, {
+          axios.get(`https://servicenow.somee.com/api/Appointments`, {
             params: { customersCustomerId: customerId, _limit: 3 }
           }),
-          axios.get(`http://servicenow.somee.com/api/Payments`, {
+          axios.get(`https://servicenow.somee.com/api/Payments`, {
             params: { _limit: 5 }
           }),
-          axios.get(`http://servicenow.somee.com/api/Providers`)
+          axios.get(`https://servicenow.somee.com/api/Providers`)
         ]);
 
         // Procesar proveedores frecuentes

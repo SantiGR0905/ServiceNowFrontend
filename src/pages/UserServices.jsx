@@ -16,8 +16,8 @@ export default function UserServices() {
     const fetchServices = async () => {
       try {
         const [personalRes, allRes] = await Promise.all([
-          axios.get(`http://servicenow.somee.com/api/PersonalServices?userId=${user.userId}`),
-          axios.get('http://servicenow.somee.com/api/PersonalServices')
+          axios.get(`https://servicenow.somee.com/api/PersonalServices?userId=${user.userId}`),
+          axios.get('https://servicenow.somee.com/api/PersonalServices')
         ]);
         setServices(personalRes.data);
         setAllServices(allRes.data);
@@ -30,11 +30,11 @@ export default function UserServices() {
 
   const handleAddService = async () => {
     try {
-      await axios.post('http://servicenow.somee.com/api/PersonalServices', {
+      await axios.post('https://servicenow.somee.com/api/PersonalServices', {
         ...newService,
         userId: user.userId
       });
-      const res = await axios.get(`http://servicenow.somee.com/api/PersonalServices?userId=${user.userId}`);
+      const res = await axios.get(`https://servicenow.somee.com/api/PersonalServices?userId=${user.userId}`);
       setServices(res.data);
       setNewService({ serviceId: '', description: '' });
     } catch (error) {

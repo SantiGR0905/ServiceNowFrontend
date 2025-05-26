@@ -19,7 +19,7 @@ export default function ClientAppointments() {
   useEffect(() => {
     const fetchCustomerId = async () => {
       try {
-        const res = await axios.get(`http://servicenow.somee.com/api/Customers`, {
+        const res = await axios.get(`https://servicenow.somee.com/api/Customers`, {
           params: { usersUserId: userId }
         });
 
@@ -45,12 +45,12 @@ export default function ClientAppointments() {
     const fetchProvidersAndServices = async () => {
       try {
         const [providersRes, servicesRes] = await Promise.all([
-          axios.get(`http://servicenow.somee.com/api/Providers`, {
+          axios.get(`https://servicenow.somee.com/api/Providers`, {
             params: {
               _embed: 'users',
             }
           }),
-          axios.get(`http://servicenow.somee.com/api/PersonalServices`)
+          axios.get(`https://servicenow.somee.com/api/PersonalServices`)
         ]);
 
         setProviders(providersRes.data);
@@ -72,7 +72,7 @@ export default function ClientAppointments() {
       setIsLoading(true);
       setError(null);
       try {
-        const appointmentsRes = await axios.get(`http://servicenow.somee.com/api/Appointments`, {
+        const appointmentsRes = await axios.get(`https://servicenow.somee.com/api/Appointments`, {
           params: { customersCustomerId: customerId }
         });
 
@@ -112,7 +112,7 @@ export default function ClientAppointments() {
   // Cancelar cita
   const cancelAppointment = async (appointmentId) => {
     try {
-      await axios.patch(`http://servicenow.somee.com/api/Appointments/${appointmentId}`, {
+      await axios.patch(`https://servicenow.somee.com/api/Appointments/${appointmentId}`, {
         status: 'cancelled'
       });
       setAppointments(appointments.map(app =>
@@ -126,7 +126,7 @@ export default function ClientAppointments() {
   // Marcar cita como completada
   const completeAppointment = async (appointmentId) => {
     try {
-      await axios.patch(`http://servicenow.somee.com/api/Appointments/${appointmentId}`, {
+      await axios.patch(`https://servicenow.somee.com/api/Appointments/${appointmentId}`, {
         status: 'completed'
       });
       setAppointments(appointments.map(app =>

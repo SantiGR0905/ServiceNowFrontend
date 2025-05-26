@@ -11,7 +11,7 @@ export default function ManageAppointments() {
   useEffect(() => {
     const fetchAppointments = async () => {
       try {
-        const res = await axios.get('http://servicenow.somee.com/api/Appointments');
+        const res = await axios.get('https://servicenow.somee.com/api/Appointments');
         setAppointments(res.data);
       } catch (error) {
         console.error('Error fetching appointments:', error);
@@ -22,7 +22,7 @@ export default function ManageAppointments() {
 
   const updateAppointmentStatus = async (appointmentId, status) => {
     try {
-      await axios.put(`http://servicenow.somee.com/api/Appointments/${appointmentId}/status`, { status });
+      await axios.put(`https://servicenow.somee.com/api/Appointments/${appointmentId}/status`, { status });
       setAppointments(appointments.map(app => 
         app.appointmentId === appointmentId ? { ...app, status } : app
       ));

@@ -35,11 +35,11 @@ export default function UserDashboard() {
         setLoading(true);
         
         const appointmentsRes = await axios.get(
-          `http://servicenow.somee.com/api/Appointments?userId=${userId}`
+          `https://servicenow.somee.com/api/Appointments?userId=${userId}`
         );
         
         const paymentsRes = await axios.get(
-          `http://servicenow.somee.com/api/Payments?userId=${userId}`
+          `https://servicenow.somee.com/api/Payments?userId=${userId}`
         );
 
         console.log('Datos recibidos - Citas:', appointmentsRes.data);

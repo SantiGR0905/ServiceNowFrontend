@@ -16,7 +16,7 @@ export default function FindServices() {
       setError(null);
       
       try {
-        const res = await axios.get('http://servicenow.somee.com/api/PersonalServices');
+        const res = await axios.get('https://servicenow.somee.com/api/PersonalServices');
         // Filtrar servicios no eliminados
         const activeServices = res.data.filter(service => !service.isDeleted);
         setServices(activeServices);

@@ -18,7 +18,7 @@ export default function UserAppointments() {
     const fetchProviderId = async () => {
       try {
         const response = await axios.get(
-          `http://servicenow.somee.com/api/Providers`,
+          `https://servicenow.somee.com/api/Providers`,
           { 
             params: { usersUserId: userId },
             headers: {
@@ -50,14 +50,14 @@ export default function UserAppointments() {
       try {
         // Obtener citas y clientes en paralelo
         const [appointmentsRes, customersRes] = await Promise.all([
-          axios.get(`http://servicenow.somee.com/api/Appointments`, {
+          axios.get(`https://servicenow.somee.com/api/Appointments`, {
             params: { providerId },
             headers: {
               Authorization: `Bearer ${localStorage.getItem('token')}`
             },
             signal: controller.signal
           }),
-          axios.get(`http://servicenow.somee.com/api/Customers`, {
+          axios.get(`https://servicenow.somee.com/api/Customers`, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem('token')}`
             },
@@ -103,7 +103,7 @@ export default function UserAppointments() {
   const handleCancelAppointment = async (appointmentId) => {
     try {
       await axios.patch(
-        `http://servicenow.somee.com/api/Appointments/${appointmentId}/cancel`,
+        `https://servicenow.somee.com/api/Appointments/${appointmentId}/cancel`,
         {},
         {
           headers: {

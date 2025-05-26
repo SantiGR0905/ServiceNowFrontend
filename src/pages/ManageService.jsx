@@ -13,7 +13,7 @@ export default function ManageServices() {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const res = await axios.get('http://servicenow.somee.com/api/PersonalServices');
+        const res = await axios.get('https://servicenow.somee.com/api/PersonalServices');
         setServices(res.data);
       } catch (error) {
         console.error('Error fetching services:', error);
@@ -24,7 +24,7 @@ export default function ManageServices() {
 
   const handleCreateService = async () => {
     try {
-      const res = await axios.post('http://servicenow.somee.com/api/PersonalServices', newService);
+      const res = await axios.post('https://servicenow.somee.com/api/PersonalServices', newService);
       setServices([...services, res.data]);
       setNewService({ serviceName: '', description: '' });
     } catch (error) {
@@ -35,7 +35,7 @@ export default function ManageServices() {
   const handleUpdateService = async () => {
     try {
       const res = await axios.put(
-        `http://servicenow.somee.com/api/PersonalServices/${editingId}`,
+        `https://servicenow.somee.com/api/PersonalServices/${editingId}`,
         newService
       );
       setServices(services.map(s => 
@@ -50,7 +50,7 @@ export default function ManageServices() {
 
   const toggleServiceStatus = async (serviceId, isDeleted) => {
     try {
-      await axios.put(`http://servicenow.somee.com/api/PersonalServices/${serviceId}/status`, { isDeleted });
+      await axios.put(`https://servicenow.somee.com/api/PersonalServices/${serviceId}/status`, { isDeleted });
       setServices(services.map(s => 
         s.serviceId === serviceId ? { ...s, isDeleted } : s
       ));

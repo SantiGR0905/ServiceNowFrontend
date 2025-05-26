@@ -27,10 +27,10 @@ export default function RateService() {
         setError(null);
 
         // 1. Obtener detalles de la cita
-        const appointmentRes = await axios.get(`http://servicenow.somee.com/api/Appointments/${appointmentId}`);
+        const appointmentRes = await axios.get(`https://servicenow.somee.com/api/Appointments/${appointmentId}`);
         
         // 2. Obtener información del cliente
-        const customerRes = await axios.get('http://servicenow.somee.com/api/Customers', {
+        const customerRes = await axios.get('https://servicenow.somee.com/api/Customers', {
           params: { usersUserId: userId }
         });
 
@@ -59,13 +59,13 @@ export default function RateService() {
         setAppointment(appointmentRes.data);
 
         if (appointmentRes.data.providersProviderId) {
-          const providerRes = await axios.get(`http://servicenow.somee.com/api/Providers/${appointmentRes.data.providersProviderId}`, {
+          const providerRes = await axios.get(`https://servicenow.somee.com/api/Providers/${appointmentRes.data.providersProviderId}`, {
             params: { _embed: 'users' }
           });
           setProvider(providerRes.data);
 
           if (providerRes.data.personalServices?.serviceId) {
-            const serviceRes = await axios.get(`http://servicenow.somee.com/api/PersonalServices/${providerRes.data.personalServices.serviceId}`);
+            const serviceRes = await axios.get(`https://servicenow.somee.com/api/PersonalServices/${providerRes.data.personalServices.serviceId}`);
             setService(serviceRes.data);
           }
         }
@@ -84,7 +84,7 @@ export default function RateService() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://servicenow.somee.com/api/Ratings', {
+      await axios.post('https://servicenow.somee.com/api/Ratings', {
         appointmentId: Number(appointmentId),
         userId: Number(userId),
         score: rating,

@@ -16,9 +16,9 @@ function Principal() {
     const fetchData = async () => {
       try {
         const [servicesRes, usersRes, appointmentsRes] = await Promise.all([
-          axios.get('http://servicenow.somee.com/api/PersonalServices'),
-          axios.get('http://servicenow.somee.com/api/Users'),
-          axios.get('http://servicenow.somee.com/api/Appointments')
+          axios.get('https://servicenow.somee.com/api/PersonalServices'),
+          axios.get('https://servicenow.somee.com/api/Users'),
+          axios.get('https://servicenow.somee.com/api/Appointments')
         ]);
 
         // Procesar estadísticas
@@ -55,8 +55,6 @@ function Principal() {
           <h1 className="logo">ServiNow</h1>
           <nav>
             <Link to="/about">Nosotros</Link>
-            <Link to="/services">Servicios</Link>
-            <Link to="/how-it-works">Cómo funciona</Link>
             <Link to="/login" className="btn-login">Iniciar Sesión</Link>
             <Link to="/registrarse" className="btn-login">Registrarse</Link>
           </nav>
@@ -119,8 +117,6 @@ function Principal() {
           <div className="footer-section">
             <h4>Enlaces</h4>
             <Link to="/about">Nosotros</Link>
-            <Link to="/contact">Contacto</Link>
-            <Link to="/privacy">Privacidad</Link>
           </div>
         </div>
       </footer>

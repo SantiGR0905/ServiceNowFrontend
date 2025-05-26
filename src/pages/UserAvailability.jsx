@@ -22,7 +22,7 @@ export default function UserAvailability() {
     const fetchProviderId = async () => {
       try {
         const response = await axios.get(
-          'http://servicenow.somee.com/api/Providers',
+          'https://servicenow.somee.com/api/Providers',
           {
             params: { usersUserId: user.userId },
             headers: {
@@ -52,7 +52,7 @@ export default function UserAvailability() {
     const fetchAvailability = async () => {
       try {
         const res = await axios.get(
-          `http://servicenow.somee.com/api/Availability`,
+          `https://servicenow.somee.com/api/Availability`,
           {
             params: { providerId },
             headers: {
@@ -95,7 +95,7 @@ export default function UserAvailability() {
         availability
           .filter(a => daysToUpdate.includes(a.weekDay))
           .map(a => 
-            axios.delete(`http://servicenow.somee.com/api/Availability/${a.availabilityId}`, {
+            axios.delete(`https://servicenow.somee.com/api/Availability/${a.availabilityId}`, {
               headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`
               }
@@ -113,7 +113,7 @@ export default function UserAvailability() {
 
       await Promise.all(
         newAvailability.map(avail => 
-          axios.post('http://servicenow.somee.com/api/Availability', avail, {
+          axios.post('https://servicenow.somee.com/api/Availability', avail, {
             headers: {
               'Content-Type': 'application/json',
               Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -124,7 +124,7 @@ export default function UserAvailability() {
 
       // Actualizar lista
       const res = await axios.get(
-        `http://servicenow.somee.com/api/Availability?providerId=${providerId}`,
+        `https://servicenow.somee.com/api/Availability?providerId=${providerId}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`

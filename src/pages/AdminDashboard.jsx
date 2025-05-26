@@ -17,9 +17,9 @@ export default function AdminDashboard() {
     const fetchStats = async () => {
       try {
         const [usersRes, appointmentsRes, paymentsRes] = await Promise.all([
-          axios.get('http://servicenow.somee.com/api/Users'),
-          axios.get('http://servicenow.somee.com/api/Appointments'),
-          axios.get('http://servicenow.somee.com/api/Payments')
+          axios.get('https://servicenow.somee.com/api/Users'),
+          axios.get('https://servicenow.somee.com/api/Appointments'),
+          axios.get('https://servicenow.somee.com/api/Payments')
         ]);
         
         const providers = usersRes.data.filter(u => 

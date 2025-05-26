@@ -38,7 +38,7 @@ export default function BookService() {
       setIsLoading(true);
       try {
         // Obtener servicio
-        const servicesRes = await axios.get('http://servicenow.somee.com/api/PersonalServices');
+        const servicesRes = await axios.get('https://servicenow.somee.com/api/PersonalServices');
         const foundService = servicesRes.data.find(
           s => s.serviceId === Number(serviceId) && !s.isDeleted
         );
@@ -47,7 +47,7 @@ export default function BookService() {
         setService(foundService);
 
         // Obtener proveedores
-        const providersRes = await axios.get('http://servicenow.somee.com/api/Providers', {
+        const providersRes = await axios.get('https://servicenow.somee.com/api/Providers', {
           params: { isDeleted: false, _embed: 'users' }
         });
 
@@ -84,7 +84,7 @@ export default function BookService() {
       }
 
       // Obtener customerId
-      const customerRes = await axios.get('http://servicenow.somee.com/api/Customers', {
+      const customerRes = await axios.get('https://servicenow.somee.com/api/Customers', {
         params: { usersUserId: userId }
       });
       
@@ -116,7 +116,7 @@ export default function BookService() {
       };
 
       const response = await axios.post(
-        'http://servicenow.somee.com/api/Appointments',
+        'https://servicenow.somee.com/api/Appointments',
         appointmentData
       );
 

@@ -14,8 +14,8 @@ export default function ManageUsers() {
     const fetchData = async () => {
       try {
         const [usersRes, typesRes] = await Promise.all([
-          axios.get('http://servicenow.somee.com/api/Users'),
-          axios.get('http://servicenow.somee.com/api/UserTypes')
+          axios.get('https://servicenow.somee.com/api/Users'),
+          axios.get('https://servicenow.somee.com/api/UserTypes')
         ]);
         setUsers(usersRes.data);
         setUserTypes(typesRes.data);
@@ -28,7 +28,7 @@ export default function ManageUsers() {
 
   const updateUserType = async (userId, userTypeId) => {
     try {
-      await axios.put(`http://servicenow.somee.com/api/Users/${userId}/type`, { userTypeId });
+      await axios.put(`https://servicenow.somee.com/api/Users/${userId}/type`, { userTypeId });
       setUsers(users.map(u => 
         u.userId === userId ? { ...u, userTypes: userTypes.find(t => t.userTypeId === userTypeId) } : u
       ));
@@ -39,7 +39,7 @@ export default function ManageUsers() {
 
   const toggleUserStatus = async (userId, isDeleted) => {
     try {
-      await axios.put(`http://servicenow.somee.com/api/Users/${userId}/status`, { isDeleted });
+      await axios.put(`https://servicenow.somee.com/api/Users/${userId}/status`, { isDeleted });
       setUsers(users.map(u => 
         u.userId === userId ? { ...u, isDeleted } : u
       ));

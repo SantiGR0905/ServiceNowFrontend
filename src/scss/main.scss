@@ -1,0 +1,19 @@
+@use 'base/botones' as *;
+@use 'base/globales' as *;
+@use 'base/mixins' as *;
+@use 'base/normalize' as *;
+@use 'base/utilidades' as *;
+@use 'base/variables' as *;
+
+/** Paginas Internas **/
+@use 'layout/anuncios' as *;
+@use 'layout/contactar' as *;
+@use 'layout/footer' as *;
+@use 'layout/formularios' as *;
+@use 'layout/header' as *;
+@use 'layout/iconos' as * ;
+@use 'layout/inferior' as *;
+@use 'layout/navegacion' as *;
+
+//@import url('https://fonts.googleapis.com/css?family=Lato:300,400,700,900');
+

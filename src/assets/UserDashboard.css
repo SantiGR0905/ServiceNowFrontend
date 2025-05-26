@@ -1,0 +1,178 @@
+/* UserDashboard.css */
+.dashboard-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: 'Segoe UI', system-ui;
+  background: #f8fafc;
+  min-height: 100vh;
+}
+
+/* Header */
+.dashboard-header {
+  background: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  margin-bottom: 2rem;
+}
+
+.dashboard-title {
+  font-size: 2.5rem;
+  color: #2c3e50;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+}
+
+.dashboard-controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+/* Botones de navegación */
+.nav-button {
+  padding: 1.5rem;
+  background: #f1f5f9;
+  border-radius: 0.8rem;
+  text-decoration: none;
+  color: #334155;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  border: 2px solid transparent;
+}
+
+.nav-button:hover {
+  background: #e2e8f0;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.nav-icon {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.nav-text {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+/* Estadísticas */
+.stats-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.stat-card {
+  padding: 2rem;
+  border-radius: 1rem;
+  position: relative;
+  overflow: hidden;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+}
+
+.stat-content {
+  position: relative;
+  z-index: 1;
+}
+
+.stat-title {
+  font-size: 1.4rem;
+  color: rgba(255,255,255,0.9);
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.stat-value {
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: white;
+  margin: 0;
+}
+
+.stat-decoration {
+  position: absolute;
+  opacity: 0.15;
+  font-size: 8rem;
+  bottom: -20px;
+  right: -10px;
+  transform: rotate(15deg);
+  user-select: none;
+}
+
+/* Colores de las tarjetas */
+.pending {
+  background: linear-gradient(45deg, #f59e0b, #fcd34d);
+}
+
+.completed {
+  background: linear-gradient(45deg, #10b981, #34d399);
+}
+
+.earnings {
+  background: linear-gradient(45deg, #3b82f6, #60a5fa);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .dashboard-container {
+    padding: 1.5rem;
+  }
+  
+  .dashboard-title {
+    font-size: 2rem;
+  }
+  
+  .stat-card {
+    min-height: 180px;
+    padding: 1.5rem;
+  }
+  
+  .stat-value {
+    font-size: 2.2rem;
+  }
+  
+  .stat-decoration {
+    font-size: 6rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-text {
+    font-size: 1rem;
+  }
+  
+  .stat-title {
+    font-size: 1.2rem;
+  }
+}
+
+/* Estados de carga y error */
+.loading {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.2rem;
+  color: #64748b;
+}
+
+.error-message {
+  background: #fee2e2;
+  color: #dc2626;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  margin: 1rem 0;
+  text-align: center;
+}

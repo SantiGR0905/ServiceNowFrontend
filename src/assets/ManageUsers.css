@@ -1,0 +1,92 @@
+.manage-users {
+  padding: 2rem;
+  font-family: Arial, sans-serif;
+}
+
+.manage-users h2 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.controls input,
+.controls select {
+  padding: 0.8rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+}
+
+.controls input:focus,
+.controls select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.users-table {
+  margin-top: 1rem;
+  overflow-x: auto;
+}
+
+.users-table table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  background-color: #fff;
+}
+
+.users-table th,
+.users-table td {
+  padding: 1rem;
+  border: 1px solid #ddd;
+}
+
+.users-table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.users-table td {
+  font-size: 1rem;
+}
+
+.users-table td select {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+}
+
+.users-table td select:focus {
+  border-color: #007bff;
+}
+
+button {
+  padding: 0.6rem 1.2rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 1rem;
+}
+
+.activate-btn {
+  background-color: #28a745;
+  color: white;
+}
+
+.deactivate-btn {
+  background-color: #dc3545;
+  color: white;
+}
+
+button:hover {
+  opacity: 0.8;
+}

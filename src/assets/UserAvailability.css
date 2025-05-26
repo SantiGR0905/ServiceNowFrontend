@@ -1,0 +1,97 @@
+.availability-container {
+  padding: 2rem;
+  font-family: Arial, sans-serif;
+}
+
+.availability-container h2 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.availability-content {
+  background-color: #f9f9f9;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.time-selection {
+  margin-top: 2rem;
+}
+
+.time-selection label {
+  font-size: 1rem;
+  margin-right: 1rem;
+}
+
+.time-selection input[type="time"] {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 0.3rem;
+  margin-right: 1rem;
+}
+
+button {
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  color: white;
+  background-color: #007bff;
+  border: none;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.current-availability {
+  margin-top: 2rem;
+}
+
+.current-availability h3 {
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+}
+
+.current-availability ul {
+  list-style: none;
+  padding: 0;
+}
+
+.current-availability li {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.current-availability p {
+  font-size: 1rem;
+  color: #555;
+}
+
+/* DayPicker Styles */
+.DayPicker {
+  margin-bottom: 2rem;
+}
+
+.DayPicker-Day {
+  padding: 0.8rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.DayPicker-Day:hover {
+  background-color: #f1f1f1;
+}
+
+.DayPicker-Day.selected {
+  background-color: #007bff;
+  color: white;
+}

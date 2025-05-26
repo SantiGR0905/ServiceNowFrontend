@@ -1,0 +1,74 @@
+.financial-reports {
+  max-width: 1200px;
+  margin: 4rem auto;
+  padding: 0 2rem;
+  text-align: center;
+}
+
+.financial-reports h2 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: var(--dark-color);
+  position: relative;
+}
+
+.financial-reports h2::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+  border-radius: 2px;
+}
+
+.controls {
+  margin-bottom: 2rem;
+}
+
+.controls select {
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius);
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  background-color: white;
+  cursor: pointer;
+}
+
+.chart-container {
+  width: 100%;
+  height: 400px;
+  margin-bottom: 3rem;
+  background-color: white;
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+}
+
+.summary {
+  background-color: #f9f9f9;
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  text-align: left;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.summary h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+}
+
+.summary p {
+  font-size: 1rem;
+  margin: 0.5rem 0;
+  color: var(--text-color);
+}
+
+.summary strong {
+  color: var(--accent-color);
+}

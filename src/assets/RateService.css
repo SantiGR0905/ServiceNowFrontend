@@ -1,0 +1,77 @@
+.rate-service {
+  padding: 2rem;
+  font-family: Arial, sans-serif;
+}
+
+.rate-service h2 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.rate-service p {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.rating-input {
+  margin-bottom: 1.5rem;
+}
+
+.rating-input label {
+  font-size: 1.1rem;
+  margin-right: 1rem;
+}
+
+.stars {
+  display: inline-block;
+  font-size: 1.5rem;
+  color: #ffcc00;
+  cursor: pointer;
+}
+
+.stars span {
+  margin-right: 0.3rem;
+}
+
+.stars span.filled {
+  color: #ff9900;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.form-group textarea {
+  width: 100%;
+  padding: 0.8rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 0.3rem;
+  resize: vertical;
+}
+
+button {
+  padding: 0.7rem 1.2rem;
+  font-size: 1rem;
+  color: white;
+  background-color: #007bff;
+  border: none;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}

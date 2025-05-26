@@ -1,0 +1,61 @@
+@use '../base/variables' as *;
+@use '../base/mixins' as *;
+.no-webp .inicio {
+    background-image: url(../img/header.jpg);
+}
+.webp .inicio {
+    background-image: url(../img/header.webp);
+}
+
+.header {
+    background-color: $grisOscuro;
+    padding: .5rem 0 .5rem 0;
+
+    &.inicio {
+        background-position: center center;
+        background-size: cover;
+        @include tablet {
+            min-height: 70rem;
+        }
+        .contenido-header{
+            @include tablet {
+                min-height: 70rem;
+            }
+        }
+    }
+}
+.contenido-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0 1rem;
+    
+    h1 {
+        text-align: left;
+        color: $blanco;
+        font-weight: $bold;
+        line-height: 2;
+        max-width: 60rem;
+    }
+    nav {
+        color: $blanco;
+        padding-top: 2rem;
+        margin-top: 2rem;
+        text-align: right;
+        a{
+            margin: 0 1rem;
+        }
+    }
+}
+.servicios{
+    nav {
+        display: flex;
+        justify-content: space-between;
+        color: $blanco;
+        margin-top: .5rem;
+        text-align: right;
+        a{
+            margin: 0 3rem;
+        }
+    }
+}

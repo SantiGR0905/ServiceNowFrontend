@@ -15,7 +15,7 @@ export default function ClientMessages() {
     const fetchMessages = async () => {
       try {
         const res = await axios.get(`https://servicenow.somee.com/api/Messages?appointmentId=${appointmentId}`);
-        setMessages(res.data.filter(m => !m.isDeleted));
+        setMessages(res.data);
       } catch (error) {
         console.error('Error fetching messages:', error);
       }
@@ -36,13 +36,13 @@ export default function ClientMessages() {
 
     try {
       await axios.post('https://servicenow.somee.com/api/Messages', {
-        appointmentId,
-        userId: user.userId,
-        messageText: newMessage
+        messageText: newMessage,
+        appointmentId: parseInt(appointmentId),
+        sentAt: new Date().toISOString()
       });
       setNewMessage('');
       const res = await axios.get(`https://servicenow.somee.com/api/Messages?appointmentId=${appointmentId}`);
-      setMessages(res.data.filter(m => !m.isDeleted));
+      setMessages(res.data);
     } catch (error) {
       console.error('Error sending message:', error);
     }
@@ -64,7 +64,11 @@ export default function ClientMessages() {
           >
             <p>{message.messageText}</p>
             <span className="time">
-              {new Date(message.sentAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+              {new Date(message.sentAt).toLocaleTimeString([], { 
+                hour: '2-digit', 
+                minute: '2-digit',
+                hour12: true
+              })}
             </span>
           </div>
         ))}
@@ -77,8 +81,13 @@ export default function ClientMessages() {
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
           placeholder="Escribe tu mensaje..."
+          aria-label="Escribe tu mensaje"
         />
-        <button type="submit">Enviar</button>
+        <button type="submit" aria-label="Enviar mensaje">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+            <path fill="currentColor" d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+          </svg>
+        </button>
       </form>
     </div>
   );

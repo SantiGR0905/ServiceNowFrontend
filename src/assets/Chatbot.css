@@ -1,0 +1,142 @@
+/* Estilos del Chatbot */
+.chatbot-container {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 1000;
+}
+
+.chatbot-toggle {
+  background: #4a6bff;
+  color: white;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(74, 107, 255, 0.3);
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.chatbot-toggle.activo {
+  background: #ff6b6b;
+  transform: rotate(135deg);
+}
+
+.chatbot-contenido {
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+  width: 350px;
+  max-height: 70vh;
+  position: absolute;
+  bottom: 80px;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.chatbot-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid #eee;
+}
+
+.chatbot-header h2 {
+  color: #2d3436;
+  margin: 0 0 0.5rem;
+  font-size: 1.25rem;
+}
+
+.chatbot-header p {
+  color: #6c757d;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.categorias {
+  display: flex;
+  gap: 0.5rem;
+  padding: 1rem;
+  flex-wrap: wrap;
+  background: #f8f9fa;
+}
+
+.categoria {
+  background: #e9ecef;
+  border: none;
+  border-radius: 20px;
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.categoria.activa {
+  background: #4a6bff;
+  color: white;
+}
+
+.preguntas {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem;
+}
+
+.pregunta {
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  overflow: hidden;
+  background: white;
+}
+
+.pregunta-btn {
+  width: 100%;
+  padding: 1rem;
+  border: none;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  color: black;
+}
+
+.pregunta-btn.abierta {
+  background: #4a6bff;
+  color: black;
+}
+
+.indicador {
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+.pregunta-btn.abierta .indicador {
+  transform: rotate(45deg);
+}
+
+.respuesta {
+  padding: 1rem;
+  background: white;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #444;
+}
+
+@media (max-width: 768px) {
+  .chatbot-container {
+    bottom: 20px;
+    right: 20px;
+  }
+  
+  .chatbot-contenido {
+    width: 90vw;
+    right: 5vw;
+  }
+}

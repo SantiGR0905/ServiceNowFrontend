@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import {Routes, Route } from 'react-router-dom';
+import {Routes, Route, Router, useLocation } from 'react-router-dom';
 import Principal from "./pages/Principal.jsx";
 import IniciarSesion from "./pages/IniciarSesion.jsx";
 import Registrarse from "./pages/Registrarse.jsx";
@@ -26,7 +26,6 @@ import { AuthProvider } from './services/AuthContext.jsx';
 import ClientAppointments from './pages/ClientAppointments.jsx';
 import ClientProfile from './pages/ClientProfile.jsx';
 import Nosotros from './pages/Nosotros.jsx';
-//<Route path="/Admin/Service" element={<AdminService/>} />
 
 function App() {
   return (
@@ -37,6 +36,7 @@ function App() {
                     <Route path="/Nosotros" element={<Nosotros/>} />
                     <Route path="/Login" element={<IniciarSesion />} />
                     <Route path='/Registrarse' element={<Registrarse/>}/>
+                    {/*<Route path="/Chatbot" element={<Chatbot/>} />
                     {/*<Route element={<ProtectedRoute requiredUserType={1} requiredPermission={1}/>}>*/}
                         <Route path="/Admin" element={<AdminDashboard/>} />
                         <Route path="/Admin/Layout" element={<AdminLayout/>} />

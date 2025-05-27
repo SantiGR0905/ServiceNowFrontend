@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import '../assets/Principal.css';
+import ChatBot from '../components/ChatBot';
 
 function Principal() {
   const [stats, setStats] = useState({
@@ -106,6 +107,7 @@ function Principal() {
           <p className="author">- Carlos M.</p>
         </div>
       </section>
+      <ChatBot />
 
       {/* Footer */}
       <footer className="footer">

@@ -53,7 +53,7 @@ function Principal() {
       {/* Header */}
       <header className="header">
         <div className="header-content">
-          <h1 className="logo">ServiNow</h1>
+          <h1 className="logo">ServiceNow</h1>
           <nav>
             <Link to="/Nosotros">Nosotros</Link>
             <Link to="/login" className="btn-login">Iniciar Sesión</Link>
@@ -113,7 +113,7 @@ function Principal() {
       <footer className="footer">
         <div className="footer-content">
           <div className="footer-section">
-            <h3>ServiNow</h3>
+            <h3>ServiceNow</h3>
             <p>Conectando profesionales con clientes</p>
           </div>
           <div className="footer-section">

@@ -2,134 +2,310 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAuth } from '../services/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import '../assets/UserDashboard.css';
-import { Link } from 'react-router-dom';
+import { format } from 'date-fns';
+import '../assets/ClientProfile.css';
 
-export default function UserDashboard() {
-  const { userId, authLoading, logout } = useAuth();
+export default function ClientProfile() {
+  const { userId, logout } = useAuth();
   const navigate = useNavigate();
-  const [stats, setStats] = useState({
-    pending: 0,
-    completed: 0,
-    earnings: 0
+  const [profile, setProfile] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phoneNumber: '',
+    password: '',
+    userTypeId: '',
+    userTypeName: '',
+    created: '',
+    isDeleted: false
   });
-  const [loading, setLoading] = useState(true);
+  const [appointments, setAppointments] = useState([]);
+  const [isEditing, setIsEditing] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
+  console.log('userId', userId);
 
   useEffect(() => {
-    console.log('Efecto ejecutado - userId:', userId); // Debug
-    
     const fetchData = async () => {
       if (!userId) {
         navigate('/login');
         return;
       }
 
+      setIsLoading(true);
       try {
-        console.log('Iniciando carga de estadísticas...'); // Debug
-        setLoading(true);
-        
-        const appointmentsRes = await axios.get(
-          `https://servicenow.somee.com/api/Appointments?userId=${userId}`
-        );
-        
-        const paymentsRes = await axios.get(
-          `https://servicenow.somee.com/api/Payments?userId=${userId}`
-        );
+        // Obtener datos del usuario
+        const userRes = await axios.get(`https://servicenow.somee.com/api/Users/${userId}`);
+        const userData = userRes.data;
 
-        console.log('Respuesta de citas:', appointmentsRes.data); // Debug
-        console.log('Respuesta de pagos:', paymentsRes.data); // Debug
+        // Obtener tipo de usuario
+        let userTypeName = 'No especificado';
+        if (userData.userTypesUserTypeId) {
+          const typeRes = await axios.get(`https://servicenow.somee.com/api/UserTypes/${userData.userTypesUserTypeId}`);
+          userTypeName = typeRes.data.userType;
+        }
 
-        const pending = appointmentsRes.data.filter(a => !a.isDeleted && !a.completed).length;
-        const completed = appointmentsRes.data.filter(a => !a.isDeleted && a.completed).length;
-        const earnings = paymentsRes.data.reduce((sum, payment) => sum + payment.amount, 0);
+        setProfile({
+          firstName: userData.firstName || '',
+          lastName: userData.lastName || '',
+          email: userData.email || '',
+          phoneNumber: userData.phoneNumber || '',
+          password: '',
+          userTypeId: userData.userTypesUserTypeId || '',
+          userTypeName: userTypeName,
+          created: userData.created ? format(new Date(userData.created), 'dd/MM/yyyy HH:mm') : '',
+          isDeleted: userData.isDeleted || false
+        });
 
-        setStats({ pending, completed, earnings });
+        // Obtener citas si es cliente
+        if (userData.userTypesUserTypeId === 3) { // Asumiendo 3 es Customer
+          const customerRes = await axios.get(`https://servicenow.somee.com/api/Customers`, {
+            params: { usersUserId: userId }
+          });
+          
+          if (customerRes.data.length > 0) {
+            const customerId = customerRes.data[0].customerId;
+            const appointmentsRes = await axios.get(`https://servicenow.somee.com/api/Appointments`, {
+              params: { customersCustomerId: customerId, limit: 3 }
+            });
+            setAppointments(appointmentsRes.data);
+          }
+        }
+
       } catch (error) {
-        console.error('Error cargando datos:', error);
-        setError('Error al cargar las estadísticas');
+        console.error('Error al obtener datos:', error);
+        setError('Error al cargar los datos del perfil');
       } finally {
-        setLoading(false);
+        setIsLoading(false);
       }
     };
 
-    if (userId) fetchData();
+    fetchData();
   }, [userId, navigate]);
 
-  console.log('Estado de renderizado:', { authLoading, userId, loading }); // Debug
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setProfile(prev => ({ ...prev, [name]: value }));
+  };
 
-  if (authLoading) {
-    return <div className="loading">Verificando autenticación...</div>;
-  }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError(null);
+    setSuccess(null);
+    
+    try {
+      const updateData = {
+        firstName: profile.firstName,
+        lastName: profile.lastName,
+        email: profile.email,
+        phoneNumber: profile.phoneNumber,
+        userTypesUserTypeId: profile.userTypeId
+      };
 
-  if (!userId) {
-    navigate('/login');
-    return null;
-  }
+      await axios.put(`https://servicenow.somee.com/api/Users/${userId}`, updateData);
+      
+      if (profile.password) {
+        await axios.patch(`https://servicenow.somee.com/api/Users/${userId}/password`, {
+          newPassword: profile.password
+        });
+      }
 
-  if (loading) {
-    return <div className="loading">Cargando estadísticas...</div>;
-  }
+      setSuccess('Perfil actualizado correctamente');
+      setIsEditing(false);
+    } catch (error) {
+      console.error('Error al actualizar:', error);
+      setError(error.response?.data?.message || 'Error al actualizar el perfil');
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
-  if (error) {
-    return <div className="alert error">{error}</div>;
+  const handleDeleteAccount = async () => {
+    if (window.confirm('¿Está seguro que desea marcar su cuenta como eliminada?')) {
+      try {
+        await axios.patch(`https://servicenow.somee.com/api/Users/${userId}`, {
+          isDeleted: true
+        });
+        logout();
+        navigate('/');
+      } catch (error) {
+        console.error('Error al eliminar cuenta:', error);
+        setError('Error al eliminar la cuenta');
+      }
+    }
+  };
+
+  if (isLoading) {
+    return <div className="loading">Cargando perfil...</div>;
   }
 
   return (
-    <div className="dashboard">
-      <div className="dashboard-header">
-        <h2>Panel de Prestador</h2>
-        <div className="dashboard-actions">
+    <div className="client-profile-container">
+      <div className="profile-header">
+        <h1>Mi Perfil</h1>
+        <div className="profile-actions">
+          {!isEditing ? (
+            <button onClick={() => setIsEditing(true)} className="edit-btn">
+              Editar Perfil
+            </button>
+          ) : (
+            <button onClick={() => setIsEditing(false)} className="cancel-btn">
+              Cancelar
+            </button>
+          )}
           <button onClick={logout} className="logout-btn">
             Cerrar Sesión
           </button>
         </div>
       </div>
 
-      <div className="navigation-links">
-        <Link to="/Provider/Appointments" className="nav-link">
-          <i className="icon-calendar"></i> Mis Citas
-        </Link>
-        <Link to="/Provider/Availability" className="nav-link">
-          <i className="icon-clock"></i> Disponibilidad
-        </Link>
-        <Link to="/Provider/Profile" className="nav-link">
-          <i className="icon-user"></i> Perfil
-        </Link>
-        <Link to="/Provider/Services" className="nav-link">
-          <i className="icon-service"></i> Servicios
-        </Link>
+      {error && <div className="alert error">{error}</div>}
+      {success && <div className="alert success">{success}</div>}
+
+      <div className="profile-content">
+        <div className="profile-section">
+          <h2>Información Personal</h2>
+          {isEditing ? (
+            <form onSubmit={handleSubmit}>
+              <div className="form-group">
+                <label>Nombre:</label>
+                <input
+                  type="text"
+                  name="firstName"
+                  value={profile.firstName}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label>Apellido:</label>
+                <input
+                  type="text"
+                  name="lastName"
+                  value={profile.lastName}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label>Email:</label>
+                <input
+                  type="email"
+                  name="email"
+                  value={profile.email}
+                  onChange={handleInputChange}
+                  required
+                  disabled
+                />
+              </div>
+              <div className="form-group">
+                <label>Teléfono:</label>
+                <input
+                  type="tel"
+                  name="phoneNumber"
+                  value={profile.phoneNumber}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label>Nueva Contraseña:</label>
+                <input
+                  type="password"
+                  name="password"
+                  value={profile.password}
+                  onChange={handleInputChange}
+                  placeholder="Dejar en blanco para no cambiar"
+                />
+              </div>
+              <div className="form-group">
+                <label>Tipo de Usuario:</label>
+                <input
+                  type="text"
+                  value={profile.userTypeName}
+                  disabled
+                />
+              </div>
+              <div className="form-group">
+                <label>Fecha de Creación:</label>
+                <input
+                  type="text"
+                  value={profile.created}
+                  disabled
+                />
+              </div>
+              <button type="submit" disabled={isLoading} className="save-btn">
+                {isLoading ? 'Guardando...' : 'Guardar Cambios'}
+              </button>
+            </form>
+          ) : (
+            <div className="profile-info">
+              <p><strong>Nombre:</strong> {profile.firstName} {profile.lastName}</p>
+              <p><strong>Email:</strong> {profile.email}</p>
+              <p><strong>Teléfono:</strong> {profile.phoneNumber || 'No especificado'}</p>
+              <p><strong>Miembro desde:</strong> {profile.created}</p>
+            </div>
+          )}
+        </div>
+          <div className="quick-navigation">
+  <h2>Accesos Rápidos</h2>
+  <div className="nav-buttons">
+    <button onClick={() => navigate('/Profile')}>Perfil</button>
+    <button onClick={() => navigate('/BookService')}>Reservar Servicio</button>
+    <button onClick={() => navigate('/Appointments')}>Mis Citas</button>
+    <button onClick={() => navigate('/Dashboard')}>Panel</button>
+    <button onClick={() => navigate('/Messages')}>Mensajes</button>
+    <button onClick={() => navigate('/Payments')}>Pagos</button>
+    <button onClick={() => navigate('/FindServices')}>Buscar Servicios</button>
+    <button onClick={() => navigate('/RateService')}>Calificar Servicio</button>
+  </div>
+</div>
+
+        {profile.userTypeId === 1 && (
+          <div className="appointments-section">
+            <h2>Mis Próximas Citas</h2>
+            {appointments.length === 0 ? (
+              <p>No tienes citas programadas</p>
+            ) : (
+              <ul className="appointments-list">
+                {appointments.map(appointment => (
+                  <li key={appointment.appointmentId} className="appointment-item">
+                    <div>
+                      <h3>Cita #{appointment.appointmentId}</h3>
+                      <p><strong>Fecha:</strong> {format(new Date(appointment.appointmentDate), 'PPP')}</p>
+                      <p><strong>Hora:</strong> {appointment.time}</p>
+                      <p><strong>Dirección:</strong> {appointment.address}</p>
+                      <p><strong>Notas:</strong> {appointment.notes || 'Sin notas'}</p>
+                    </div>
+                    <button 
+                      onClick={() => navigate(`/appointments/${appointment.appointmentId}`)}
+                      className="details-btn"
+                    >
+                      Ver Detalles
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+            <button 
+              onClick={() => navigate('/appointments')}
+              className="view-all-btn"
+            >
+              Ver todas mis citas
+            </button>
+          </div>
+        )}
       </div>
 
-      <div className="stats-grid">
-        <div className="stat-card pending">
-          <h3><i className="icon-pending"></i> Citas Pendientes</h3>
-          <p>{stats.pending}</p>
-        </div>
-        
-        <div className="stat-card completed">
-          <h3><i className="icon-completed"></i> Citas Completadas</h3>
-          <p>{stats.completed}</p>
-        </div>
-        
-        <div className="stat-card earnings">
-          <h3><i className="icon-earnings"></i> Ganancias Totales</h3>
-          <p>${stats.earnings.toLocaleString()}</p>
-        </div>
-      </div>
-
-      <div className="quick-actions">
+      <div className="danger-zone">
         <button 
-          className="action-btn"
-          onClick={() => navigate('/Provider/NewService')}
+          onClick={handleDeleteAccount}
+          className="delete-account-btn"
+          disabled={profile.isDeleted}
         >
-          <i className="icon-plus"></i> Nuevo Servicio
-        </button>
-        <button 
-          className="action-btn"
-          onClick={() => navigate('/Provider/Reports')}
-        >
-          <i className="icon-report"></i> Generar Reporte
+          {profile.isDeleted ? 'Cuenta eliminada' : 'Eliminar Mi Cuenta'}
         </button>
       </div>
     </div>

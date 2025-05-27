@@ -253,7 +253,6 @@ export default function ClientProfile() {
   <h2>Accesos Rápidos</h2>
   <div className="nav-buttons">
     <button onClick={() => navigate('/Appointments')}>Mis Citas</button>
-    <button onClick={() => navigate('/Messages')}>Mensajes</button>
     <button onClick={() => navigate('/FindServices')}>Buscar Servicios</button>
   </div>
 </div>

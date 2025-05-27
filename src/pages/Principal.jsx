@@ -54,7 +54,7 @@ function Principal() {
         <div className="header-content">
           <h1 className="logo">ServiNow</h1>
           <nav>
-            <Link to="/about">Nosotros</Link>
+            <Link to="/Nosotros">Nosotros</Link>
             <Link to="/login" className="btn-login">Iniciar Sesión</Link>
             <Link to="/registrarse" className="btn-login">Registrarse</Link>
           </nav>

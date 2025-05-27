@@ -25,6 +25,7 @@ import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import { AuthProvider } from './services/AuthContext.jsx';
 import ClientAppointments from './pages/ClientAppointments.jsx';
 import ClientProfile from './pages/ClientProfile.jsx';
+import Nosotros from './pages/Nosotros.jsx';
 //<Route path="/Admin/Service" element={<AdminService/>} />
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
             <div>
                 <Routes>
                     <Route path="/" element={<Principal/>} />
+                    <Route path="/Nosotros" element={<Nosotros/>} />
                     <Route path="/Login" element={<IniciarSesion />} />
                     <Route path='/Registrarse' element={<Registrarse/>}/>
                     {/*<Route element={<ProtectedRoute requiredUserType={1} requiredPermission={1}/>}>*/}

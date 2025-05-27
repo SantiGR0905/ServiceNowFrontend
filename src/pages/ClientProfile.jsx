@@ -252,14 +252,9 @@ export default function ClientProfile() {
           <div className="quick-navigation">
   <h2>Accesos Rápidos</h2>
   <div className="nav-buttons">
-    <button onClick={() => navigate('/Profile')}>Perfil</button>
-    <button onClick={() => navigate('/BookService')}>Reservar Servicio</button>
     <button onClick={() => navigate('/Appointments')}>Mis Citas</button>
-    <button onClick={() => navigate('/Dashboard')}>Panel</button>
     <button onClick={() => navigate('/Messages')}>Mensajes</button>
-    <button onClick={() => navigate('/Payments')}>Pagos</button>
     <button onClick={() => navigate('/FindServices')}>Buscar Servicios</button>
-    <button onClick={() => navigate('/RateService')}>Calificar Servicio</button>
   </div>
 </div>
 
